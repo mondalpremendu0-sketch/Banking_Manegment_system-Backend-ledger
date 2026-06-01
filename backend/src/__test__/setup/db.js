@@ -21,7 +21,7 @@ const clearDB = async () => {
 
 const closeDB = async () => {
     if (mongoose.connection.readyState !== 0) {
-        await mongoose.connection.db.dropDatabase();
+        //await mongoose.connection.db.dropDatabase();
         await mongoose.connection.close();
     }
 };

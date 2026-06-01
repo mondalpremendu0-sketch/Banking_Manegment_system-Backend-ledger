@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { connectDB, clearDB, closeDB } = require("./setup/db.js");
 
@@ -6,7 +6,7 @@ const { login_controller } = require("../controllers/auth.controller.js");
 const User = require("../model/user.model.js");
 
 jest.mock("jsonwebtoken");
-jest.mock("bcrypt");
+//jest.mock("bcryptjs");
 
 // 1. DB and connect
 beforeAll(async () => {
@@ -68,12 +68,13 @@ describe("Auth Controller - Registration", () => {
         };
         jwt.sign.mockResolvedValue("fake-jwt-token");
 
-        await login_controller(req, res, next);
-
-        expect(res.status).toHaveBeenCalledWith(201);
+        const response = await login_controller(req, res, next);
+console.log(response);
+        expect(res.status).toBe(201);
 
         // Verify in Database
         const userInDb = await User.findOne({ email: "new@test.com" });
+        
         expect(userInDb).toBeTruthy();
         expect(userInDb.name).toBe("testuser");
     });
