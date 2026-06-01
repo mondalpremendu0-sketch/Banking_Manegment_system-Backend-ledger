@@ -8,3 +8,5 @@ const errorMiddleware = (err,req,res,next) => {
     stack:err.stack
     });
 }
+
+module.exports = errorMiddleware

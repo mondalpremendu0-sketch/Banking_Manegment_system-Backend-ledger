@@ -4,25 +4,22 @@ const cookie = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
 const User = require("../model/user.model.js");
+const AppError = require("../utils/error.utils.js");
 
-async function login_controller(req, res) {
+
+
+async function login_controller(req, res,next) {
     try {
         const { Username, email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json({
-                success: false,
-                message: "Email or password must be fill!"
-            });
+            return next(new AppError("All fields are required",400))
         }
 
         const isExsistingUser = await User.findOne({ email });
 
         if (isExsistingUser) {
-            return res.status(400).json({
-                success: false,
-                message: "User already Exists!"
-            });
+            return next(new AppError("User already Exists",400))
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
@@ -32,6 +29,9 @@ async function login_controller(req, res) {
             email,
             password: hashedPassword
         });
+        if (!newUser) {
+          return next(new AppError("Can't Create Account!",400))
+        }
 
         newUser.password = undefined;
 
@@ -40,10 +40,11 @@ async function login_controller(req, res) {
                 email: newUser.email,
                 username: newUser.name
             },
-            process.env.JWT_SECRET
+            process.env.JWT_SECRET,
+            {expiresIn:'7d'}
         );
         
-        cookie.set("token",token)
+        res.cookie("token",token)
         
         res.status(201).json({ 
           success:true,
@@ -54,7 +55,7 @@ async function login_controller(req, res) {
           }
         });
     } catch (err) {
-        console.error("login Error:", err);
+        return next(new AppError(err.message,500))
     }
 }
 

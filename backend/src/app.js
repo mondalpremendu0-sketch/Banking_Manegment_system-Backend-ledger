@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
 const userRoutes = require('./routes/user.routes.js')
+const errorMiddleware = require('./middlewares/error.middleware.js')
 
 
 
@@ -18,5 +19,6 @@ app.use(cookieParser());
 
 app.use("/v1/user",userRoutes);
 
+app.use(errorMiddleware);
 
 module.exports = app;
