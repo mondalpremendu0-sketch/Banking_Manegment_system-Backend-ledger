@@ -24,7 +24,7 @@ async function login_controller(req, res,next) {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const newUser = User.create({
+        const newUser = await User.create({
             name: Username,
             email,
             password: hashedPassword
