@@ -80,7 +80,7 @@ async function login_controller(req, res, next) {
         }
 
         existingUser.password = undefined;
-        const token = await jwt.sing(
+        const token = await jwt.sign(
             {
                 email: existingUser.email,
                 username: existingUser.name

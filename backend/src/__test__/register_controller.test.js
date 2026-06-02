@@ -9,23 +9,6 @@ const app = require('../app.js')
 // Set a dummy JWT secret for testing
 process.env.JWT_SECRET = 'test-secret-key';
 
-/*
-// --- Mock Express App Setup ---
-const app = express();
-app.use(express.json());
-app.use(cookieParser());
-
-// Mount the controller
-app.post('/api/user/register', register_controller);
-
-// Mock Global Error Handler to catch your `next(new AppError(...))`
-app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
-    res.status(statusCode).json({
-        error: err.message
-    });
-});
-*/
 // --- Test Hooks ---
 beforeAll(async () => await connectDB());
 afterEach(async () => {
