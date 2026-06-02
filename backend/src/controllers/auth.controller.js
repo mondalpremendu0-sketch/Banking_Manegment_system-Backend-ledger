@@ -134,8 +134,10 @@ async function logout_controller(req,res,next) {
   
   try {
     res.cookie("token",undefined);
-    re
-    
+    res.status(200).json({ 
+      success:true,
+      message:"loged out successfully"
+      });
   } catch (err) {
     return next(new AppError("Database disconnected", 500));
     
