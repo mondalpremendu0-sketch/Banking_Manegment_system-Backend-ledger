@@ -83,7 +83,8 @@ async function login_controller(req, res, next) {
         const token = await jwt.sign(
             {
                 email: existingUser.email,
-                username: existingUser.name
+                username: existingUser.name,
+                userId: existingUser._id
             },
             process.env.JWT_SECRET,
             {
@@ -105,15 +106,29 @@ async function login_controller(req, res, next) {
         return next(new AppError("Database disconnected", 500));
     }
 }
-async function userProfile_controller(req,res,next) {
-  try {
-    const { userId } = ;
-    
-    
-  } catch (err) {
-    return next(new AppError("Database disconnected", 500));
-  }
-  
+async function userProfile_controller(req, res, next) {
+    try {
+        const { userId } = req.user;
+
+        const userInfo = await User.findOneById({ _id: userId }).select(
+            "-password"
+        );
+
+        if (!userInfo) {
+            return next(new AppError("Can't find userDetails", 400));
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "User Details fetched successfully!",
+            userDetails: {
+                username: userInfo.name,
+                email: userInfo.email
+            }
+        });
+    } catch (err) {
+        return next(new AppError("Database disconnected", 500));
+    }
 }
 
 module.exports = {

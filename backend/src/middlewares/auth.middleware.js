@@ -18,6 +18,7 @@ async function isLogedIn(req,res,next) {
     next();
   } catch (err) {
     return next(new AppError(err.message, 500));
-    
   }
 }
+
+module.exports = isLogedIn;
