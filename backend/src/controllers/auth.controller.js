@@ -130,6 +130,18 @@ async function userProfile_controller(req, res, next) {
         return next(new AppError("Database disconnected", 500));
     }
 }
+async function logout_controller(req,res,next) {
+  
+  try {
+    res.cookie("token",undefined);
+    re
+    
+  } catch (err) {
+    return next(new AppError("Database disconnected", 500));
+    
+  }
+  
+}
 
 module.exports = {
     register_controller,
