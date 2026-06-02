@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 
-app.use("/v1/user",userRoutes);
+app.use("/api/user",userRoutes);
 
 app.use(errorMiddleware);
 

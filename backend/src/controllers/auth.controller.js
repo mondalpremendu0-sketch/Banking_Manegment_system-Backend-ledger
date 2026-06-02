@@ -8,24 +8,24 @@ const AppError = require("../utils/error.utils.js");
 
 
 
-async function login_controller(req, res,next) {
+async function register_controller(req, res,next) {
     try {
-        const { Username, email, password } = req.body;
+        const { username, email, password } = req.body;
 
-        if (!email || !password) {
+        if (!email || !password || !username) {
             return next(new AppError("All fields are required",400))
         }
 
         const isExsistingUser = await User.findOne({ email });
 
         if (isExsistingUser) {
-            return next(new AppError("User already Exists",400))
+            return next(new AppError("User already Exists",409))
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const newUser = await User.create({
-            name: Username,
+            name: username,
             email,
             password: hashedPassword
         });
@@ -48,7 +48,7 @@ async function login_controller(req, res,next) {
         
         res.status(201).json({ 
           success:true,
-          message:"loged in successfully!",
+          message:"registered successfully!",
           userDetails:{
             username:newUser.name,
             email:newUser.email
@@ -60,5 +60,5 @@ async function login_controller(req, res,next) {
 }
 
 module.exports = {
-    login_controller
+    register_controller
 };
