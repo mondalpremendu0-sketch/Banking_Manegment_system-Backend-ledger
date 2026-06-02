@@ -56,8 +56,57 @@ async function register_controller(req, res, next) {
         return next(new AppError("Database disconnected", 500));
     }
 }
+async function login_controller(req, res, next) {
+    try {
+        const { email, password } = req.body;
 
+        if (!email || !password) {
+            return next(new AppError("All fields are required", 400));
+        }
+
+        const existingUser = await User.findOne({ email }).select("+password");
+
+        if (!existingUser) {
+            return next(new AppError("User not found!", 400));
+        }
+
+        const validPassword = await bcrypt.compare(
+            password,
+            existingUser.password
+        );
+
+        if (!validPassword) {
+            return next(new AppError("Wrong Password", 400));
+        }
+
+        existingUser.password = undefined;
+        const token = await jwt.sing(
+            {
+                email: existingUser.email,
+                username: existingUser.name
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "5d"
+            }
+        );
+
+        res.cookie("token", token);
+
+        res.status(200).json({
+            success: true,
+            message: "Loged in successfully!",
+            userDetails: {
+                email: existingUser.email,
+                username: existingUser.name
+            }
+        });
+    } catch (err) {
+        return next(new AppError("Database disconnected", 500));
+    }
+}
 
 module.exports = {
-    register_controller
+    register_controller,
+    login_controller
 };
