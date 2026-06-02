@@ -110,7 +110,7 @@ async function userProfile_controller(req, res, next) {
     try {
         const { userId } = req.user;
 
-        const userInfo = await User.findOneById({ _id: userId }).select(
+        const userInfo = await User.findById({ _id: userId }).select(
             "-password"
         );
 
