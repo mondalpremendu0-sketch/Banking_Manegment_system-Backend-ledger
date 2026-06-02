@@ -105,8 +105,19 @@ async function login_controller(req, res, next) {
         return next(new AppError("Database disconnected", 500));
     }
 }
+async function userProfile_controller(req,res,next) {
+  try {
+    const { userId } = ;
+    
+    
+  } catch (err) {
+    return next(new AppError("Database disconnected", 500));
+  }
+  
+}
 
 module.exports = {
     register_controller,
-    login_controller
+    login_controller,
+    userProfile_controller
 };

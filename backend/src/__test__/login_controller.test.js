@@ -2,7 +2,7 @@
 const request = require('supertest');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { connectDB, closeDB, clearDB } = require('./setup/db.js');
 const User = require('../model/user.model.js'); 
 const { login_controller } = require('../controllers/auth.controller.js'); // Adjust path
@@ -88,7 +88,9 @@ describe('POST /api/user/login Controller', () => {
     // Branch 5: Catch Block (500)
     it('should return 500 if an unexpected database error occurs', async () => {
         // Force User.findOne to crash
-        jest.spyOn(User, 'findOne').mockRejectedValue(new Error('Mongo Network Error'));
+        jest.spyOn(User, 'findOne').mockReturnValue({
+            select: jest.fn().mockRejectedValue(new Error('Mongo Network Error'))
+        });
 
         const response = await request(app)
             .post('/api/user/login')
