@@ -5,17 +5,18 @@ const cookieParser = require('cookie-parser'); // Needed to parse the cookie in 
 const { connectDB, closeDB, clearDB } = require('./setup/db.js');
 const User = require('../model/user.model.js'); 
 const { register_controller } = require('../controllers/auth.controller.js'); // Adjust path
-
+const app = require('../app.js')
 // Set a dummy JWT secret for testing
 process.env.JWT_SECRET = 'test-secret-key';
 
+/*
 // --- Mock Express App Setup ---
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
 // Mount the controller
-app.post('/api/register', register_controller);
+app.post('/api/user/register', register_controller);
 
 // Mock Global Error Handler to catch your `next(new AppError(...))`
 app.use((err, req, res, next) => {
@@ -24,7 +25,7 @@ app.use((err, req, res, next) => {
         error: err.message
     });
 });
-
+*/
 // --- Test Hooks ---
 beforeAll(async () => await connectDB());
 afterEach(async () => {
@@ -48,7 +49,7 @@ describe('POST /api/user/register Controller', () => {
             .send({ email: 'test@example.com', password: 'Password123' }); // Missing username
 
         expect(response.status).toBe(400);
-        expect(response.body.error).toBe('All fields are required');
+        expect(response.body.message).toBe('All fields are required');
     });
 
     // Branch 2: The Happy Path (201 Created)
@@ -80,15 +81,15 @@ describe('POST /api/user/register Controller', () => {
     // Branch 3: Existing User (409 Conflict)
     it('should return 409 if the email is already in use', async () => {
         // Seed the DB
-        await request(app).post('/api/register').send(validUser);
+        await request(app).post('/api/user/register').send(validUser);
 
         // Attempt to register again
         const response = await request(app)
             .post('/api/user/register')
             .send(validUser);
-
         expect(response.status).toBe(409);
-        expect(response.body.error).toBe('User already Exists');
+        expect(response.body.message).toBe('User already Exists');
+        
     });
 
     // Branch 4: Account Creation Fails (400 Bad Request)
@@ -102,7 +103,8 @@ describe('POST /api/user/register Controller', () => {
             .send(validUser);
 
         expect(response.status).toBe(400);
-        expect(response.body.error).toBe("Can't Create Account!");
+        expect(response.body.message).toBe("Can't Create Account!");
+        
     });
 
     // Branch 5: Catch Block (500 Internal Server Error)
@@ -115,6 +117,7 @@ describe('POST /api/user/register Controller', () => {
             .send(validUser);
 
         expect(response.status).toBe(500);
-        expect(response.body.error).toBe('Database disconnected');
+        expect(response.body.message).toBe('Database disconnected');
+        
     });
 });
