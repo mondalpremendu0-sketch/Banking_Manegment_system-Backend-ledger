@@ -1,5 +1,5 @@
 // __test__/error.middleware.test.js
-const errorMiddleware = require('../middlewares/error.middleware');
+const errorMiddleware = require('../../middlewares/error.middleware');
 
 describe('Error Middleware', () => {
     let mockReq;

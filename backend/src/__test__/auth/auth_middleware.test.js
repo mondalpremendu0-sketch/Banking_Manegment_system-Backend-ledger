@@ -1,7 +1,7 @@
 // __test__/auth.middleware.test.js
 const jwt = require('jsonwebtoken');
-const isLogedIn = require('../middlewares/auth.middleware.js'); // Adjust path to your middleware
-const AppError = require('../utils/error.utils.js'); // Adjust path to your AppError
+const isLogedIn = require('../../middlewares/auth.middleware.js'); // Adjust path to your middleware
+const AppError = require('../../utils/error.utils.js'); // Adjust path to your AppError
 
 // Mock the jsonwebtoken library so we don't need real tokens
 jest.mock('jsonwebtoken');

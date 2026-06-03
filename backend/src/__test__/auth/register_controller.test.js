@@ -2,10 +2,10 @@
 const request = require('supertest');
 const express = require('express');
 const cookieParser = require('cookie-parser'); // Needed to parse the cookie in the app
-const { connectDB, closeDB, clearDB } = require('./setup/db.js');
-const User = require('../model/user.model.js'); 
-const { register_controller } = require('../controllers/auth.controller.js'); // Adjust path
-const app = require('../app.js')
+const { connectDB, closeDB, clearDB } = require('../setup/db.js');
+const User = require('../../model/user.model.js'); 
+const { register_controller } = require('../../controllers/auth.controller.js'); // Adjust path
+const app = require('../../app.js')
 // Set a dummy JWT secret for testing
 process.env.JWT_SECRET = 'test-secret-key';
 

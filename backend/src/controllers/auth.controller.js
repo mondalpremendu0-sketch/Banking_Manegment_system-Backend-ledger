@@ -133,7 +133,7 @@ async function userProfile_controller(req, res, next) {
 async function logout_controller(req,res,next) {
   
   try {
-    res.cookie("token",undefined);
+    res.clearCookie("token");
     res.status(200).json({ 
       success:true,
       message:"loged out successfully"
@@ -148,5 +148,6 @@ async function logout_controller(req,res,next) {
 module.exports = {
     register_controller,
     login_controller,
-    userProfile_controller
+    userProfile_controller,
+    logout_controller
 };

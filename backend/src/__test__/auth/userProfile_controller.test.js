@@ -2,9 +2,9 @@
 const request = require('supertest');
 const express = require('express');
 const mongoose = require('mongoose');
-const { connectDB, closeDB, clearDB } = require('./setup/db.js');
-const User = require('../model/user.model.js'); 
-const { userProfile_controller } = require('../controllers/auth.controller.js'); // Adjust path
+const { connectDB, closeDB, clearDB } = require('../setup/db.js');
+const User = require('../../model/user.model.js'); 
+const { userProfile_controller } = require('../../controllers/auth.controller.js'); // Adjust path
 
 // --- Mock Express App Setup ---
 const app = express();

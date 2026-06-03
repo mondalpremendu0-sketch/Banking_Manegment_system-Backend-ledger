@@ -9,6 +9,7 @@ const userRoutes = express.Router();
 userRoutes.post("/register", auth.register_controller);
 userRoutes.post("/login", auth.login_controller);
 userRoutes.get("/profile",isLogedIn,auth.userProfile_controller);
+userRoutes.get("/logout",isLogedIn,auth.logout_controller);
 
 
 
