@@ -4,6 +4,7 @@ const accountSchema = new mongoose.Schema({
   account:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Users",
+    required:[true,"Account must be created"],
     index:true
   },
   status:{
@@ -12,6 +13,11 @@ const accountSchema = new mongoose.Schema({
       values:["ACTIVE","FROZEN","CLOSED"]
     }
   },
+  currency:{
+    type:String,
+    required:[true,"currency is required!"],
+    default: "INR"
+  }
   
   
 },{timestams:true})
