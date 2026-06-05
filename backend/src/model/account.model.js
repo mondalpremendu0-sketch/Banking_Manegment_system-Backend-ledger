@@ -8,11 +8,11 @@ const accountSchema = new mongoose.Schema({
     index:true
   },
   status:{
+    type:String,
     enum:{
-      type:String,
       values:["ACTIVE","FROZEN","CLOSED"],
-      default: "ACTIVE"
-    }
+    },
+    default: "ACTIVE"
   },
   currency:{
     type:String,
@@ -21,7 +21,7 @@ const accountSchema = new mongoose.Schema({
   }
   
   
-},{timestams:true});
+},{timestamps:true});
 
 accountSchema.index({account:1, status:1})
 

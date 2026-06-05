@@ -9,7 +9,7 @@ async function createAccount_controller(req,res,next) {
     
     const {userId} = req.user;
     
-    const newAccount = await Account.create({userId});
+    const newAccount = await Account.create({account:userId});
     
     if (!newAccount) {
       return next(new AppError("can't create account right now", 400));

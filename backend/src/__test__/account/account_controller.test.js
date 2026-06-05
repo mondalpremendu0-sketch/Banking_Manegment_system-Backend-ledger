@@ -2,11 +2,11 @@
 const request = require("supertest");
 const express = require("express");
 const mongoose = require("mongoose");
-const { connectDB, closeDB, clearDB } = require("../setup/db");
-const Account = require("../models/Account"); // Adjust path to your Account model
+const { connectDB, closeDB, clearDB } = require("../setup/db.js");
+const Account = require("../../model/account.model.js"); // Adjust path to your Account model
 const {
     createAccount_controller
-} = require("../controllers/accountController"); // Adjust path
+} = require("../../controllers/account.controller.js"); // Adjust path
 
 // --- Mock Express App Setup ---
 const app = express();
@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 // Mount the controller
-app.post("/api/accounts", createAccount_controller);
+app.post("/api/user/account", createAccount_controller);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
@@ -38,16 +38,16 @@ afterEach(async () => {
 });
 afterAll(async () => await closeDB());
 
-describe("POST /api/accounts Controller", () => {
+describe("POST /api/user/account Controller", () => {
     // Branch 1: The Happy Path (201 Created)
     it("should create a new account successfully and return 201", async () => {
         // Generate a valid MongoDB ID for our fake user
         const fakeUserId = new mongoose.Types.ObjectId().toString();
 
         const response = await request(app)
-            .post("/api/accounts")
+            .post("/api/user/account")
             .set("x-test-user-id", fakeUserId);
-
+console.log(response.text);
         // Validate the HTTP response
         expect(response.status).toBe(201);
         expect(response.body.success).toBe(true);
@@ -70,7 +70,7 @@ describe("POST /api/accounts Controller", () => {
         jest.spyOn(Account, "create").mockResolvedValue(null);
 
         const response = await request(app)
-            .post("/api/accounts")
+            .post("/api/user/account")
             .set("x-test-user-id", fakeUserId);
 
         expect(response.status).toBe(400);
@@ -87,7 +87,7 @@ describe("POST /api/accounts Controller", () => {
         );
 
         const response = await request(app)
-            .post("/api/accounts")
+            .post("/api/user/account")
             .set("x-test-user-id", fakeUserId);
 
         expect(response.status).toBe(500);
