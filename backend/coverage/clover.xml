@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1780392234601" clover="3.2.0">
-  <project timestamp="1780392234602" name="All files">
-    <metrics statements="95" coveredstatements="91" conditionals="27" coveredconditionals="27" methods="7" coveredmethods="6" elements="129" coveredelements="124" complexity="0" loc="95" ncloc="95" packages="6" files="7" classes="7"/>
+<coverage generated="1780674487612" clover="3.2.0">
+  <project timestamp="1780674487613" name="All files">
+    <metrics statements="119" coveredstatements="112" conditionals="29" coveredconditionals="27" methods="8" coveredmethods="7" elements="156" coveredelements="146" complexity="0" loc="119" ncloc="119" packages="6" files="10" classes="10"/>
     <package name="src">
-      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="/data/data/com.termux/files/home/FullstackApp/Banking_Managment_system/backend/src/app.js">
-        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
         <line num="22" count="2" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="49" coveredstatements="45" conditionals="19" coveredconditionals="19" methods="4" coveredmethods="3"/>
+      <metrics statements="60" coveredstatements="53" conditionals="21" coveredconditionals="19" methods="5" coveredmethods="4"/>
+      <file name="account.controller.js" path="/data/data/com.termux/files/home/FullstackApp/Banking_Managment_system/backend/src/controllers/account.controller.js">
+        <metrics statements="11" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+      </file>
       <file name="auth.controller.js" path="/data/data/com.termux/files/home/FullstackApp/Banking_Managment_system/backend/src/controllers/auth.controller.js">
-        <metrics statements="49" coveredstatements="45" conditionals="19" coveredconditionals="19" methods="4" coveredmethods="3"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
+        <metrics statements="49" coveredstatements="49" conditionals="19" coveredconditionals="19" methods="4" coveredmethods="4"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
         <line num="10" count="6" type="stmt"/>
         <line num="11" count="6" type="stmt"/>
         <line num="13" count="6" type="cond" truecount="5" falsecount="0"/>
@@ -68,11 +84,11 @@
         <line num="118" count="1" type="stmt"/>
         <line num="121" count="1" type="stmt"/>
         <line num="130" count="1" type="stmt"/>
-        <line num="135" count="0" type="stmt"/>
-        <line num="136" count="0" type="stmt"/>
-        <line num="137" count="0" type="stmt"/>
-        <line num="140" count="0" type="stmt"/>
-        <line num="146" count="3" type="stmt"/>
+        <line num="135" count="2" type="stmt"/>
+        <line num="136" count="2" type="stmt"/>
+        <line num="137" count="1" type="stmt"/>
+        <line num="142" count="1" type="stmt"/>
+        <line num="148" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.middlewares">
@@ -103,19 +119,35 @@
       </file>
     </package>
     <package name="src.model">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="account.model.js" path="/data/data/com.termux/files/home/FullstackApp/Banking_Managment_system/backend/src/model/account.model.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+      </file>
       <file name="user.model.js" path="/data/data/com.termux/files/home/FullstackApp/Banking_Managment_system/backend/src/model/user.model.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="25" count="3" type="stmt"/>
-        <line num="28" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.routes">
-      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="account.routes.js" path="/data/data/com.termux/files/home/FullstackApp/Banking_Managment_system/backend/src/routes/account.routes.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+      </file>
       <file name="user.routes.js" path="/data/data/com.termux/files/home/FullstackApp/Banking_Managment_system/backend/src/routes/user.routes.js">
-        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -123,17 +155,18 @@
         <line num="9" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="error.utils.js" path="/data/data/com.termux/files/home/FullstackApp/Banking_Managment_system/backend/src/utils/error.utils.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="13" type="stmt"/>
-        <line num="4" count="13" type="stmt"/>
-        <line num="7" count="13" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
+        <line num="3" count="14" type="stmt"/>
+        <line num="4" count="14" type="stmt"/>
+        <line num="7" count="14" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
       </file>
     </package>
   </project>

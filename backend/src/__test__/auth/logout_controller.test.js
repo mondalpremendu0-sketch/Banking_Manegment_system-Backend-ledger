@@ -10,8 +10,8 @@ const app = express();
 app.get('/api/user/logout', logout_controller); 
 
 // Global Error Handler
-    const statusCode = mz err.statusCode || err.status || 500;
 app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || err.status || 500;
     res.status(statusCode).json({
         success: false,
         message: err.message
