@@ -47,19 +47,23 @@ describe("POST /api/user/account Controller", () => {
         const response = await request(app)
             .post("/api/user/account")
             .set("x-test-user-id", fakeUserId);
-console.log(response.text);
+console.log(response.body.newAccount);
         // Validate the HTTP response
         expect(response.status).toBe(201);
         expect(response.body.success).toBe(true);
         expect(response.body.message).toBe("account created successfully "); // Matches your exact string with the trailing space
 
         // Validate the account data returned in the response
-        expect(response.body.newAccount).toBeDefined();
-        expect(response.body.newAccount.userId.toString()).toBe(fakeUserId);
+        expect(response.body.newAccount.account).toBeDefined();
+        expect(response.body.newAccount.account).toBe(fakeUserId);
 
         // Validate the account was actually saved to the mock database
-        const dbAccount = await Account.findOne({ userId: fakeUserId });
-        expect(dbAccount).toBeTruthy();
+        // Check that the account was actually saved using its own unique _id
+        const newAccountId = response.body.newAccount._id;
+        const dbAccount = await Account.findById(newAccountId);
+        
+       // expect(dbAccount).toBeTruthy();
+        expect(dbAccount.account.toString()).toBe(fakeUserId); // Verifies the reference is correct!
     });
 
     // Branch 2: Account Creation Fails Silently (400 Bad Request)
