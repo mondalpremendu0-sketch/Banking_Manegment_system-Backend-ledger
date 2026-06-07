@@ -1,4 +1,5 @@
 const express = require("express");
+const Account = require('../model/account.model.js');
 const Transaction = require("../model/transaction.model.js");
 const AppError = require("../utils/error.utils.js");
 async function transaction_Controller() {
@@ -10,12 +11,12 @@ async function transaction_Controller() {
             return next(new AppError("All fields are required!!", 400));
         }
         
-        const isFromAccountExists = await Transaction.findOne({
-          fromAccount:fromAccount
+        const isFromAccountExists = await Account.findOne({
+          _id:fromAccount
         })
         
-        const isToAccountExists = await Transaction.findOne({
-          toAccount:toAccount
+        const isToAccountExists = await Account.findOne({
+          _id:toAccount
         })
         
         if (!isFromAccountExists || !isToAccountExists) {
@@ -46,6 +47,17 @@ async function transaction_Controller() {
           if (isTransactionExists.status === "REVERSED") {
             return next(new AppError("Transaction is REVERSED,please try again!",400));
           }
+        }
+        
+        //chech account status
+        if (isFromAccountExists.status !== "ACTIVE" || isTransactionExists.status !== "ACTIVE") {
+          return next(new AppError("Account doesn't Active!", 400));
+        }
+        
+        const balance = await fromAccount.getBalance()
+        
+        if (balance < amount) {
+          return next(new AppError("Insufficient Amount", 400));
         }
         
         
