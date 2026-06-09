@@ -1,64 +1,115 @@
 const express = require("express");
-const Account = require('../model/account.model.js');
+const mongoose = require("mongoose");
+const Account = require("../model/account.model.js");
 const Transaction = require("../model/transaction.model.js");
+const Ledger = require("../model/ledger.model.js");
+
 const AppError = require("../utils/error.utils.js");
+
 async function transaction_Controller() {
     try {
-      //validate user and account
+        //validate user and account
         const { fromAccount, toAccount, amount, idemponceyKey } = req.body;
 
         if (!fromAccount || !toAccount || !amount || !idemponceyKey) {
             return next(new AppError("All fields are required!!", 400));
         }
-        
+
         const isFromAccountExists = await Account.findOne({
-          _id:fromAccount
-        })
-        
+            _id: fromAccount
+        });
+
         const isToAccountExists = await Account.findOne({
-          _id:toAccount
-        })
-        
+            _id: toAccount
+        });
+
         if (!isFromAccountExists || !isToAccountExists) {
-          
-          return next(new AppError("Error , From account/To account didn't Exists", 400));
+            return next(
+                new AppError(
+                    "Error , From account/To account didn't Exists",
+                    400
+                )
+            );
         }
-        
+
         //validate idp..key
-        
+
         const isTransactionExists = await Transaction.findOne({
-          idemponceyKey:idemponceyKey
-        }) 
-        
+            idemponceyKey: idemponceyKey
+        });
+
         if (isTransactionExists) {
-          if (isTransactionExists.status === "COMPLETED") {
-            res.status(200).json({ 
-              success:true,
-              message:"transaction successfull",
-              transaction:isTransactionExists
-            });
-          }
-          if (isTransactionExists.status === "PENDING") {
-            return next(new AppError("Transaction is processing,please wait!",400));
-          }
-          if (isTransactionExists.status === "FAILED") {
-            return next(new AppError("Transaction is FAILED,please try again!",400));
-          }
-          if (isTransactionExists.status === "REVERSED") {
-            return next(new AppError("Transaction is REVERSED,please try again!",400));
-          }
+            if (isTransactionExists.status === "COMPLETED") {
+                res.status(200).json({
+                    success: true,
+                    message: "transaction successfull",
+                    transaction: isTransactionExists
+                });
+            }
+            if (isTransactionExists.status === "PENDING") {
+                return next(
+                    new AppError("Transaction is processing,please wait!", 400)
+                );
+            }
+            if (isTransactionExists.status === "FAILED") {
+                return next(
+                    new AppError("Transaction is FAILED,please try again!", 400)
+                );
+            }
+            if (isTransactionExists.status === "REVERSED") {
+                return next(
+                    new AppError(
+                        "Transaction is REVERSED,please try again!",
+                        400
+                    )
+                );
+            }
         }
-        
+
         //chech account status
-        if (isFromAccountExists.status !== "ACTIVE" || isTransactionExists.status !== "ACTIVE") {
-          return next(new AppError("Account doesn't Active!", 400));
+        if (
+            isFromAccountExists.status !== "ACTIVE" ||
+            isToAccountExists.status !== "ACTIVE"
+        ) {
+            return next(new AppError("Account doesn't Active!", 400));
         }
-        
-        const balance = await fromAccount.getBalance()
-        
+
+        const balance = await fromAccount.getBalance();
+
         if (balance < amount) {
-          return next(new AppError("Insufficient Amount", 400));
+            return next(new AppError("Insufficient Amount", 400));
         }
+
+        const session = mongoose.startSession();
+        await session.startTransaction();
+
+        const transaction = await Transaction.create({
+            fromAccount,
+            toAccount,
+            amount,
+            idemponceyKey,
+            status: "PENDING"
+        },{session});
+
+        const debitedLedger = await Ledger.create({
+            transaction: transaction._id,
+            account: fromAccount,
+            amount: amount,
+            Type: "DEBITED"
+        },{session});
+
+        const createdLedger = await Ledger.create({
+            transaction: transaction._id,
+            account: toAccount,
+            amount: amount,
+            Type: "CREATED"
+        },{session});
+        
+        transaction.status ="COMPLETED";
+         await transaction.save({session});
+         
+         session.commitTransaction();
+         await session.endSession();
         
         
     } catch (err) {
