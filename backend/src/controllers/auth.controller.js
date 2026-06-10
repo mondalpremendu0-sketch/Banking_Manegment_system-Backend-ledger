@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../model/user.model.js");
 const AppError = require("../utils/error.utils.js");
+const {sendRegisterEmail} = require('../services/email.service.js')
+
 
 async function register_controller(req, res, next) {
     try {
@@ -43,7 +45,9 @@ async function register_controller(req, res, next) {
         );
 
         res.cookie("token", token);
-
+        
+        sendRegisterEmail(email,username)
+        
         res.status(201).json({
             success: true,
             message: "registered successfully!",
