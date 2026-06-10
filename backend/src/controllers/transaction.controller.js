@@ -6,7 +6,7 @@ const Ledger = require("../model/ledger.model.js");
 
 const AppError = require("../utils/error.utils.js");
 
-async function transaction_Controller() {
+async function transaction_Controller(req,res,next) {
     try {
         //validate user and account
         const { fromAccount, toAccount, amount, idemponceyKey } = req.body;
@@ -83,27 +83,27 @@ async function transaction_Controller() {
         const session = mongoose.startSession();
         await session.startTransaction();
 
-        const transaction = await Transaction.create({
+        const transaction = await Transaction.create([{
             fromAccount,
             toAccount,
             amount,
             idemponceyKey,
             status: "PENDING"
-        },{session});
+        }],{session});
 
-        const debitedLedger = await Ledger.create({
+        const debitedLedger = await Ledger.create([{
             transaction: transaction._id,
             account: fromAccount,
             amount: amount,
             Type: "DEBITED"
-        },{session});
+        }],{session});
 
-        const createdLedger = await Ledger.create({
+        const createdLedger = await Ledger.create([{
             transaction: transaction._id,
             account: toAccount,
             amount: amount,
             Type: "CREATED"
-        },{session});
+        }],{session});
         
         transaction.status ="COMPLETED";
          await transaction.save({session});
@@ -115,6 +115,11 @@ async function transaction_Controller() {
     } catch (err) {
         return next(new AppError("Database disconnected", 500));
     }
+}
+
+async function getAllTransaction_controller(req,res,next) {
+  
+  
 }
 
 module.exports = {transaction_Controller};

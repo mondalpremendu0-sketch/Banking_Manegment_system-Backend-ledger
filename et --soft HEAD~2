@@ -1,0 +1,40 @@
+[33mec7408a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m remove env file
+[33mcbbb90c[m setup node mailer
+[33mdc653c3[m setup nodemailer
+[33m0ae803b[m[33m ([m[1;31morigin/main[m[33m)[m create session for transaction is completed
+[33m7a2ec32[m create session for transaction
+[33m2cd1ffe[m create blance calculate method..
+[33m7b40908[m validate user and account and idp...key logic done
+[33mb60a7d5[m setup transction controller
+[33m5e5826b[m connected to app js
+[33m403f5d7[m transaction route createdgit add .clear
+[33m7f75f85[m ledger  model created
+[33m724a79b[m trans model created
+[33me82057c[m  account controller test passed
+[33mfe190cc[m setup account controller test
+[33m82a408d[m account controller routes done
+[33m3f57041[m account model modified
+[33m7e9f981[m account model done
+[33m2a8550b[m set up account model
+[33mca01128[m setup logout controller done
+[33maf79d77[m setup logout controller
+[33m4fe2e2c[m setup profile test cases
+[33mff30964[m auth middleware all test cases passed
+[33m8d8b4fc[m setup auth middleware test cases
+[33m3648685[m implemented userprofile controller
+[33m4b4440d[m implement auth middleware
+[33m569a275[m all login test cass passede
+[33mec90f55[m setup login test case
+[33m08e0e52[m implement login controller done
+[33m3c019b0[m  register all test passed
+[33mdd11fbd[m rewrite register test setup
+[33ma69cb0c[m test 2 cases
+[33m5060cb8[m implemention of jest setup done
+[33md8d1ec4[m implemention of login controller done
+[33m8858827[m implementing error middleware to send error
+[33m8ea57b7[m implementing error class
+[33m2233601[m login controller done
+[33m310bdaf[m user routes  done
+[33m4786d68[m user schema done
+[33mcfd50dd[m mongo db connection successful
+[33m6ec0bcf[m first commit
