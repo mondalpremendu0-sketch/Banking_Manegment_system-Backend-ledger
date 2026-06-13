@@ -32,7 +32,7 @@ async function sendRegisterEmail(userEmail, userName) {
         <p>Regards,</p>
         <p>Banking Management Team</p>
       `;
-      await sendEmail(to,text,subject,html)
+      await sendEmail(to,subject,text,html)
     } catch (error) {
         console.error("Error sending email:", error);
         throw error;
@@ -72,10 +72,40 @@ async function sendTransactionMail(userEmail, userName,Type,amount,balance) {
       await sendEmail(to,subject,text,html);
   } catch (err) {
     console.error('Mail Error:', err);
-    
+    throw  err;
   }
   
 }
 
-module.exports = {sendRegisterEmail};
+async function sendSuccessfullMsg (userEmail, userName) {
+  try {
+    
+   const to = userEmail;
+   const text = "Transaction Successful";
+   const subject = "Operation Successful";
+   const html = `
+        <h2>Success Notification</h2>
 
+        <p>Hello ${userName},</p>
+
+        <p>Your request has been completed successfully.</p>
+
+        <p>Thank you for using our service.</p>
+
+        <br>
+        <p>Regards,</p>
+        <p><strong>Banking Management System</strong></p>
+      `;
+    
+  } catch (err) {
+    console.error('Error:', err);
+    throw err;
+  }
+  
+}
+
+module.exports = {
+  sendRegisterEmail,
+  sendTransactionMail,
+  sendSuccessfullMsg
+};
