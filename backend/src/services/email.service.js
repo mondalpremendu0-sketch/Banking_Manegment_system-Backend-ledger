@@ -23,8 +23,8 @@ async function sendRegisterEmail(userEmail, userName) {
     try {
          const to = userEmail;
          const text = "Registration for Banking ledger!"
-          const subject = "Welcome to Banking Management System"
-          const  html = `
+        const subject = "Welcome to Banking Management System"
+        const  html = `
         <h2>Welcome, ${userName} 🎉</h2>
         <p>Your account <u>${userEmail} </u> has been successfully registered.</p>
         <p>Thank you for choosing our Banking Management System.</p>
@@ -39,4 +39,43 @@ async function sendRegisterEmail(userEmail, userName) {
     }
 }
 
+async function sendTransactionMail(userEmail, userName,Type,amount,balance) {
+  
+  try {
+    const to = userEmail;
+    const subject = "Transaction Alert";
+    const text = "You have a new transaction!!";
+    const html =  `<h2>Transaction Notification</h2>
+        <p>Hello <strong>${userName}</strong>,</p>
+        
+        <p>Your transaction has been processed successfully.</p>
+
+        <table border="1" cellpadding="10" cellspacing="0">
+          <tr>
+            <td><strong>Transaction Type</strong></td>
+            <td>${Type}</td>
+          </tr>
+          <tr>
+            <td><strong>Amount</strong></td>
+            <td>₹${amount}</td>
+          </tr>
+          <tr>
+            <td><strong>Available Balance</strong></td>
+            <td>₹${balance}</td>
+          </tr>
+        </table>
+
+        <p>If you did not perform this transaction, please contact support immediately.</p>
+
+        <p>Thank you,<br>Banking Management System</p>
+      `;
+      await sendEmail(to,subject,text,html);
+  } catch (err) {
+    console.error('Mail Error:', err);
+    
+  }
+  
+}
+
 module.exports = {sendRegisterEmail};
+
